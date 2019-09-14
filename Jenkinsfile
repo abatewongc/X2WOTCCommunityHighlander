@@ -1,7 +1,7 @@
 pipeline {
   environment {
       modName = "X2WOTCCommunityHighlander"
-      repoName = "abatewongc/X2WOTCCommunityHighlander"
+      repoName = "X2CommunityCore/X2WOTCCommunityHighlander"
   }
 
   options {
@@ -41,9 +41,9 @@ pipeline {
     }
 
     stage('Upload Release') {
-      when { branch 'feature/automation' }
+      when { branch 'master' }
       steps {
-        withCredentials([usernamePassword(credentialsId: 'github-abatewongc-via-access-token', passwordVariable: 'personal_access_token', usernameVariable: 'username')]) {
+        withCredentials([usernamePassword(credentialsId: 'github-x2communitycore-via-access-token', passwordVariable: 'personal_access_token', usernameVariable: 'username')]) {
           bat '''
             C:\\Python37\\python.exe .scripts/tagmaker.py %personal_access_token% --repo %repoName% --current_commit_hash %GIT_COMMIT% --workspace_directory "%WORKSPACE%" --artifact_name %modName%.zip --should_increment 1
             '''

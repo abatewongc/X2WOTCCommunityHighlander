@@ -85,7 +85,7 @@ if is_prerelease:
 
 # message
 if message == '':
-    message = "tag " + str(new_version) + " created by tidecaller"
+    message = "tag " + new_version_string + " created by tidecaller"
 
 # artifact we're uploading (modNameCanonical.zip)
 artifact = open(workspace_directory + os.path.sep + artifact_name)
