@@ -7,6 +7,9 @@ Param(
 $sdkPath = "C:/Program Files (x86)/Steam/steamapps/common/XCOM 2 War of the Chosen SDK"
 $gamePath = "C:/Program Files (x86)/Steam/steamapps/common/XCOM 2"
 
+# list of all native script packages
+[System.String[]]$nativescriptpackages = "XComGame", "Core", "Engine", "GFxUI", "AkAudio", "GameFramework", "UnrealEd", "GFxUIEditor", "IpDrv", "OnlineSubsystemPC", "OnlineSubsystemLive", "OnlineSubsystemSteamworks", "OnlineSubsystemPSN"
+
 function WriteModMetadata([string]$mod, [string]$sdkPath, [int]$publishedId, [string]$title, [string]$description) {
     Set-Content "$sdkPath/XComGame/Mods/$mod/$mod.XComMod" "[mod]`npublishedFileId=$publishedId`nTitle=$title`nDescription=$description`nRequiresXPACK=true"
 }
