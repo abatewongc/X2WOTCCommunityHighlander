@@ -47,7 +47,7 @@ parser.add_argument("--is_prerelease", action="store_true", default=False,
 
 args = parser.parse_args()
 paToken = args.access_token
-repo = args.repo
+repo_path = args.repo
 message = args.message
 current_commit_hash = args.current_commit_hash
 workspace_directory = args.workspace_directory
@@ -63,11 +63,7 @@ if should_increment > 2 or should_increment < 0:
 
 # get repo
 github = Github(paToken)
-user = github.get_user()
-repos = user.get_repos()
-for _repo in repos:
-    if _repo.name == repo:
-        repo = _repo
+repo = github.get_repo(repo_path)
 
 # previous version
 previous_tag = repo.get_tags()[0]
@@ -89,7 +85,7 @@ if is_prerelease:
 
 # message
 if message == '':
-    message = "tag " + str(new_version) + " proudly created by tagmaker"
+    message = "tag " + str(new_version) + " created by tidecaller"
 
 # artifact we're uploading (modNameCanonical.zip)
 artifact = open(workspace_directory + os.path.sep + artifact_name)
