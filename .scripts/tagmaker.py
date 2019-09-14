@@ -71,11 +71,21 @@ for _repo in repos:
 
 # previous version
 previous_tag = repo.get_tags()[0]
-previous_version = StrictVersion(previous_tag.name)
+previous_version_string = str(previous_tag.name)
+
+# strip invalid characters
+if previous_version_string.startswith('v'):
+    previous_version_string = previous_version_string[1:]
+if previous_version_string.endswith('rc'):
+    previous_version_string = previous_version_string[:-2]
+previous_version = StrictVersion(previous_version_string)
 
 # new version
-new_version = increment_version(previous_tag.name, should_increment)
+new_version = increment_version(previous_version_string, should_increment)
 new_version_string = str(new_version)
+new_version_string = "v" + new_version_string
+if is_prerelease:
+    new_version_string = new_version_string + 'rc'
 
 # message
 if message == '':
